@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";  // Changed
 import Header from "../components/headerMovieList";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import MovieList from "../components/movieList";
 
-const useStyles = makeStyles({  // hook function
+const useStyles = makeStyles({
   root: {
     padding: "20px",
   },
 });
-
 const MovieListPage = (props) => {
   const classes = useStyles();
-  const movies = props.movies;
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {   // hook function using useEffect
+    fetch(
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&page=1`
+    )
+      .then((res) => res.json())
+      .then((json) => {
+       console.log(json); // enabled. read the log
+        return json.results;
+      })
+      .then((movies) => {   
+        setMovies(movies);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Grid container className={classes.root}>
