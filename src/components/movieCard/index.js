@@ -1,4 +1,5 @@
 import React from "react";
+import Avatar from "@material-ui/core/Avatar" // new import
 import { Link } from "react-router-dom";  // new import to make 'more info' button dynamic
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -25,9 +26,29 @@ const useStyles = makeStyles({  // hook function
 export default function MovieCard(props) {
   const classes = useStyles();
   const movie = props.movie;
+// evebt handler
+  const handleAddToFavourite = (e) => {
+    e.preventDefault();
+    props.selectFavourite(movie.id);
+  };
+
   return (
     <Card className={classes.card}>
-      <CardHeader className={classes.header} title={movie.title} />
+     <CardHeader
+      className={classes.header}
+      avatar={
+        movie.favourite ? (
+          <Avatar className={classes.avatar}>
+            <FavoriteIcon />
+          </Avatar>
+        ) : null
+      }
+      title={
+        <Typography variant="h5" component="p">
+          {movie.title}{" "}
+        </Typography>
+      }
+    />
       <CardMedia
         className={classes.media}
         image={
@@ -53,9 +74,9 @@ export default function MovieCard(props) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={null}>
-          <FavoriteIcon color="primary" fontSize="large" />
-        </IconButton>
+      <IconButton aria-label="add to favourites" onClick={handleAddToFavourite}> {/* altered to handle addToFavourites */}
+        <FavoriteIcon color="primary" fontSize="large" />
+    </IconButton>
         <Link to={`/movies/${movie.id}`}>   {/* moved the more info button into a link */}
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
