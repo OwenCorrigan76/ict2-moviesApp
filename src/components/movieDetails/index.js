@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
@@ -6,8 +6,13 @@ import MonetizationIcon from "@material-ui/icons/MonetizationOn";
 import StarRate from "@material-ui/icons/StarRate";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+// New
+import NavigationIcon from "@material-ui/icons/Navigation";
+import Fab from "@material-ui/core/Fab";
+import Drawer from "@material-ui/core/Drawer";
+import MovieReviews from '../movieReviews'
 
-const useStyles = makeStyles((theme) => ({ // hook function using styling
+const useStyles = makeStyles((theme) => ({
   chipRoot: {
     display: "flex",
     flexDirection: "column",
@@ -30,11 +35,16 @@ const useStyles = makeStyles((theme) => ({ // hook function using styling
   chipLabel: {
     margin: theme.spacing(0.5),
   },
+  fab: {  //New
+    position: "fixed",
+    top: theme.spacing(15),
+    right: theme.spacing(2),
+  },
 }));
 
-const MovieDetails = ( props) => {
-  const classes = useStyles();    /* using the styling theme from makeStyles */
-  const movie = props.movie
+const MovieDetails = ( {movie}) => {
+  const classes = useStyles();
+  const [drawerOpen, setDrawerOpen] = useState(false); // New
 
   return (
     <>
@@ -43,16 +53,16 @@ const MovieDetails = ( props) => {
       </Typography>
 
       <Typography variant="h6" component="p">
-        {movie.overview}    {/* this is the text below Overview */}
+        {movie.overview}
       </Typography>
       <div className={classes.chipRoot}>
       <Paper component="ul" className={classes.chipSet}>
         <li>
-          <Chip label="Genres" className={classes.chipLabel} color="primary" /> {/* list with genre as primary colour */}
+          <Chip label="Genres" className={classes.chipLabel} color="primary" />
         </li>
-        {movie.genres.map((genr) => (
-          <li key={genr.name}>
-            <Chip label={genr.name} className={classes.chip} />
+        {movie.genres.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name} className={classes.chip} />
           </li>
         ))}
       </Paper>
@@ -68,18 +78,21 @@ const MovieDetails = ( props) => {
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
-      <Paper component="ul" className={classes.chipSet}>
-         <li>
-          <Chip label="Production Countries" className={classes.chipLabel} color="primary" />{/*  production countries in blue */}
-        </li>
-         {movie.production_countries.map((coun) => (
-          <li key={coun.name}>
-            <Chip label={coun.name} className={classes.chip} />
-          </li>
-        ))}
-        </Paper>
       </div>
-      </>
+      {/* New */}
+      <Fab    
+        color="secondary"
+        variant="extended"
+        onClick={() =>setDrawerOpen(true)}
+        className={classes.fab}
+      >
+        <NavigationIcon />
+        Reviews
+      </Fab>
+      <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <MovieReviews movie={movie} />
+      </Drawer>
+    </>
   );
 };
 export default  MovieDetails ;
