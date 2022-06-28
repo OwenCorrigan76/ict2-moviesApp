@@ -5,19 +5,13 @@ import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // new in lab 3
 import MovieReviewPage from "./pages/movieReviewPage";
+import SiteHeader from './components/siteHeader';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>   {/* adding home link */}
-        </li>
-        <li>
-          <Link to="/movies/favourites">Favourites</Link>  {/* adding favourites link */}
-        </li>
-      </ul>
-      <Routes>
+      <BrowserRouter>
+          <SiteHeader />      {/*This is a new header  */}
+          <Routes>
         <Route path="/movies/favourites" element={<FavouriteMoviesPage/>}
         />
         <Route path="/reviews/:id" element={<MovieReviewPage/>} />
