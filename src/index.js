@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Navigate, Routes, Link } from "react-router-dom";
 import HomePage from "./pages/homePage";
+import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // new in lab 3
 import MovieReviewPage from "./pages/movieReviewPage";
@@ -12,15 +13,15 @@ const App = () => {
       <BrowserRouter>
           <SiteHeader />      {/*This is a new header  */}
           <Routes>
-        <Route path="/movies/favourites" element={<FavouriteMoviesPage/>}
-        />
+        <Route path="/movies/favourites" element={<FavouriteMoviesPage/>}  />
+        <Route path="/movies/upcoming" element={<UpcomingMoviesPage/>}  />  {/* new route */}
         <Route path="/reviews/:id" element={<MovieReviewPage/>} />
         <Route path="/movies/:id" element={<MoviePage/>} />
         <Route path="/" element={<HomePage />} /> {/* adding home button link */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} /> {/* back to home page if none of yhe above used */}
+      </Routes> 
     </BrowserRouter>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root")); // passing App to the DOM

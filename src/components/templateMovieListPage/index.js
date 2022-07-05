@@ -10,10 +10,10 @@ import MovieList from "../movieList";
 const useStyles = makeStyles((theme) =>  ({
   root: {
     backgroundColor: "#bfbfbf",
-    paddingTop: theme.spacing(7),
+    paddingTop: theme.spacing(7), // grey line under favoutite movies
   },
   fab: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(8), // filter button screen position
     position: "fixed",
     top: theme.spacing(2),
     right: theme.spacing(2),
@@ -44,7 +44,7 @@ function MovieListPageTemplate({ movies, title, selectFavourite }) {
   return (
     <>
     <Grid container className={classes.root}>
-      <Grid item xs={12}>
+      <Grid item xs={12}> {/* grid that Favourite Movies is in */}
         <Header title={title} />
       </Grid>
       <Grid item container spacing={5}>

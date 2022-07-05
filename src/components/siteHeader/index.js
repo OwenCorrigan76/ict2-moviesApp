@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
     // background: 'none',
   },
   inactiveLink: {
-    color: 'white',
+    color: 'pink',  //link colours
     padding : theme.spacing(1),
     fontSize: '1.5rem'
-  },
-  activeLink: {
-    color: 'black',
+  }, 
+  activeLink: {  // link that's clicked
+    color: 'yellow',
     padding : theme.spacing(1),
     fontSize: '1.5rem',
     background: "#bfbfbf"
@@ -42,6 +42,7 @@ const SiteHeader = () => {
   const open = Boolean(anchorEl);
   const menuOptions = [
     { label: "Home", path: "/" },
+    { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Favourites", path: "/movies/favourites" },
     { label: "Option 3", path: "/" },
     { label: "Option 4", path: "/" },
@@ -105,7 +106,7 @@ const SiteHeader = () => {
           ) : (
             <>
               {menuOptions.map((opt) => (
-                <NavLink
+                <NavLink     /* this is for hyperlink */
                   key={opt.label}
                   to={opt.path}
                   className={({ isActive }) =>
