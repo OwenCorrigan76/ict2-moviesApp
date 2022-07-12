@@ -7,9 +7,21 @@ import MoviePage from "./pages/movieDetailsPage";
 import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // new in lab 3
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader';
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from 'react-query/devtools'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 360000,
+      refetchInterval: 360000, 
+      refetchOnWindowFocus: false
+    },
+  },
+});
 const App = () => {
   return (
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
           <SiteHeader />      {/*This is a new header  */}
           <Routes>
@@ -20,7 +32,9 @@ const App = () => {
         <Route path="/" element={<HomePage />} /> {/* adding home button link */}
         <Route path="*" element={<Navigate to="/" replace />} /> {/* back to home page if none of yhe above used */}
       </Routes> 
-    </BrowserRouter>
+     </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
