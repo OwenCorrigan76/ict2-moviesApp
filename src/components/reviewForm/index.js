@@ -79,13 +79,13 @@ const ReviewForm = ({ movie }) => {
     };
   
     const onSubmit = (review) => {
-      review.movieId = movie.id;
-      review.rating = rating;
-      // console.log(review);
-      context.addReview(movie, review);
-      setOpen(true);   // NEW
-    };
-
+        review.movieId = movie.id;
+        review.rating = rating;
+        // console.log(review);
+        context.addReview(movie, review);
+        setOpen(true);   // NEW
+      };
+      
   return (
     <Box component="div" className={classes.root}>
       <Typography component="h2" variant="h3">

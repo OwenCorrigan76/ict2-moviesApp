@@ -17,7 +17,7 @@ const HomePage = (props) => {
   }  
   const movies = data.results;
 
-  // These three lines are redundant; we will replace them laterg.
+  // These three lines are redundant; we will replace them later on.
   const favourites = movies.filter(m => m.favouurite)
   localStorage.setItem('favourites', JSON.stringify(favourites))
   const addToFavourites = (movieId) => true 
